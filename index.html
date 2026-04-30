@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scotland Golf 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream:       #f4ede0;
+      --cream-dark:  #ece3cc;
+      --green:       #1a2e1e;
+      --green-muted: #5a6a4e;
+      --gold:        #c9a449;
+      --gold-rule:   #d8c98d;
+      --text:        #1a2e1e;
+      --text-mid:    #5a6a4e;
+      --text-light:  #6e6e68;
+      --text-muted:  #8a7a4d;
+      --border:      rgba(26,46,30,0.12);
+      --border-dot:  rgba(26,46,30,0.18);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; }
+
+    body {
+      background: var(--cream);
+      color: var(--text);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 17px;
+      line-height: 1.5;
+      min-height: 100vh;
+      max-width: 480px;
+      margin: 0 auto;
+      padding-bottom: calc(60px + env(safe-area-inset-bottom, 8px));
+    }
+
+    /* ── TABS ── */
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; }
+
+    /* ── BOTTOM NAV ── */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 100%; max-width: 480px;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      background: var(--green);
+      border-top: 1px solid var(--gold);
+      padding-bottom: env(safe-area-inset-bottom, 8px);
+      z-index: 200;
+    }
+    .nav-btn {
+      background: none; border: none;
+      color: rgba(244,237,224,0.4);
+      text-align: center;
+      padding: 9px 4px 7px;
+      cursor: pointer;
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      min-height: 44px;
+    }
+    .nav-btn .nav-ico {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 15px; line-height: 1;
+    }
+    .nav-btn .nav-lbl {
+      font-family: 'Inter', sans-serif;
+      font-size: 9px; letter-spacing: 1.2px; text-transform: uppercase;
+    }
+    .nav-btn.active { color: var(--gold); }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      background: var(--green);
+      text-align: center;
+      padding: 14px 20px 16px;
+      border-bottom: 1px solid var(--gold);
+    }
+    .topbar .crest {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 5px;
+    }
+    .topbar .date {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px; font-weight: 500; color: var(--cream); line-height: 1.1;
+    }
+    .topbar .day-no {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 14px;
+      color: rgba(244,237,224,0.55); margin-top: 2px;
+    }
+
+    /* ── WEATHER STRIP ── */
+    .weather-strip {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 1px; background: var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .ws-cell { background: var(--cream); padding: 13px 8px; text-align: center; }
+    .ws-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 19px; font-weight: 600; color: var(--text); line-height: 1;
+    }
+    .ws-key {
+      font-family: 'Inter', sans-serif;
+      font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--text-muted); margin-top: 5px;
+    }
+
+    /* ── DAY HERO ── */
+    .day-hero {
+      text-align: center;
+      padding: 26px 22px 22px;
+      background: radial-gradient(ellipse at top, rgba(201,164,73,0.07), transparent 60%), var(--cream);
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 12px;
+    }
+    .hero-label::before, .hero-label::after { content: '·'; margin: 0 8px; color: var(--gold); }
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 30px; font-weight: 600; color: var(--text); line-height: 1.1; margin-bottom: 4px;
+    }
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 14px; color: var(--green-muted); margin-bottom: 16px;
+    }
+    .hero-time {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 56px; font-weight: 500; color: var(--text);
+      letter-spacing: -1px; line-height: 1;
+    }
+    .hero-time-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--text-light); margin-top: 8px;
+    }
+    .day-hero.is-quiet .hero-name {
+      font-style: italic; font-size: 22px; font-weight: 400; color: var(--text-mid);
+    }
+
+    /* ── SECTION TITLE ── */
+    .section-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--text-muted);
+      display: flex; align-items: center;
+      padding: 20px 20px 0;
+    }
+    .section-title::after {
+      content: ''; flex: 1; height: 1px;
+      background: var(--gold-rule); margin-left: 10px;
+    }
+
+    /* ── SCHEDULE ROWS ── */
+    .sched-block { padding: 0 20px; }
+    .sched-row {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      padding: 11px 0;
+      border-bottom: 1px dotted var(--border-dot);
+      min-height: 44px;
+    }
+    .sched-row:last-child { border-bottom: none; }
+    .sched-left { flex: 1; min-width: 0; padding-right: 12px; }
+    .sched-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px; font-weight: 500; color: var(--text); line-height: 1.25;
+    }
+    .sched-detail {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 13px; color: var(--text-light); margin-top: 1px;
+    }
+    .sched-address {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 12px; color: var(--green-muted);
+      margin-top: 3px; display: block; padding: 3px 0;
+      text-decoration: none;
+    }
+    .sched-address::before { content: '▸ '; font-style: normal; font-size: 10px; }
+    .sched-phone {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 12px; color: var(--green-muted);
+      margin-top: 2px; display: block; padding: 3px 0;
+      text-decoration: none;
+    }
+    .sched-phone::before { content: '☏ '; font-style: normal; font-size: 10px; }
+    .sched-time {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 14px; color: var(--text-mid);
+      white-space: nowrap; flex-shrink: 0; padding-top: 2px;
+    }
+
+    /* ── CONFIRMATION BANNER ── */
+    .conf-banner {
+      margin: 16px 20px;
+      padding: 12px 16px;
+      background: var(--green);
+      border: 1px solid var(--gold);
+      text-align: center;
+    }
+    .conf-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 3px;
+    }
+    .conf-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px; font-weight: 500; color: var(--cream);
+    }
+
+    /* ── TIP CARD ── */
+    .tip-card {
+      margin: 16px 20px 24px;
+      padding: 14px 16px 14px 20px;
+      background: var(--cream-dark);
+      border-left: 3px solid var(--gold);
+    }
+    .tip-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 15px; color: var(--text); line-height: 1.6;
+    }
+
+    /* ── COUNTDOWN ── */
+    .countdown {
+      text-align: center;
+      padding: 44px 24px 40px;
+      background: var(--green);
+      border-bottom: 1px solid var(--gold);
+    }
+    .cd-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 12px;
+    }
+    .cd-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 88px; font-weight: 500; color: var(--cream); line-height: 1;
+    }
+    .cd-unit {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 22px;
+      color: rgba(244,237,224,0.5); margin-top: 4px;
+    }
+    .cd-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 15px;
+      color: rgba(244,237,224,0.4); margin-top: 20px;
+    }
+
+    /* ── POST TRIP ── */
+    .lookback {
+      background: var(--cream-dark);
+      padding: 20px; text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .lb-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 6px;
+    }
+    .lb-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 22px; color: var(--text-mid);
+    }
+
+    /* ── TRIP ACCORDION ── */
+    .trip-day { border-bottom: 1px solid var(--border); }
+    .trip-row {
+      display: flex; align-items: center;
+      padding: 13px 20px; gap: 12px;
+      min-height: 52px; cursor: pointer;
+      background: var(--cream);
+      user-select: none; -webkit-user-select: none;
+    }
+    .trip-row:active { background: var(--cream-dark); }
+    .trip-daynum {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 500; color: var(--gold);
+      min-width: 26px; line-height: 1; flex-shrink: 0;
+    }
+    .trip-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .tdot-golf    { background: var(--gold); }
+    .tdot-rest    { background: #9a9a90; }
+    .tdot-transit { background: #4a7a90; }
+    .tdot-flex    { background: #7a5aaa; }
+    .trip-meta { flex: 1; min-width: 0; overflow: hidden; }
+    .trip-date {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+      color: var(--text-light); margin-bottom: 1px;
+    }
+    .trip-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px; font-weight: 500; color: var(--text);
+      line-height: 1.2; white-space: nowrap;
+      overflow: hidden; text-overflow: ellipsis;
+    }
+    .trip-chevron {
+      font-size: 12px; color: var(--text-muted); flex-shrink: 0;
+      transition: transform 250ms ease; font-family: 'Inter', sans-serif;
+    }
+    .trip-row.open .trip-chevron { transform: rotate(180deg); }
+    .trip-body {
+      max-height: 0; overflow: hidden;
+      transition: max-height 250ms ease;
+    }
+    .trip-body.open { max-height: 2400px; }
+    .trip-body-inner { padding-bottom: 8px; }
+    .trip-day.is-today .trip-row { background: rgba(201,164,73,0.06); }
+    .trip-day.is-today .trip-daynum { color: var(--green); }
+
+    /* ── LEG HEADERS ── */
+    .leg-header {
+      background: var(--green);
+      padding: 10px 20px 12px;
+      border-top: 1px solid var(--gold);
+      border-bottom: 1px solid rgba(201,164,73,0.3);
+    }
+    .leg-header:first-child, .leg-header.no-top { border-top: none; }
+    .leg-header h2 {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 2px;
+    }
+    .leg-header p {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 15px;
+      color: rgba(244,237,224,0.65);
+    }
+
+    /* ── BOOKINGS ── */
+    .sec-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px; font-weight: 500; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--text-muted);
+      display: flex; align-items: center;
+      padding: 20px 20px 0;
+    }
+    .sec-title::after {
+      content: ''; flex: 1; height: 1px;
+      background: var(--gold-rule); margin-left: 10px;
+    }
+    .book-block { padding: 0 20px; }
+    .book-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px dotted var(--border-dot);
+      min-height: 44px;
+    }
+    .book-item:last-child { border-bottom: none; }
+    .chk {
+      width: 18px; height: 18px;
+      border: 1.5px solid var(--border-dot); border-radius: 2px;
+      flex-shrink: 0; margin-top: 3px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; color: transparent;
+    }
+    .chk.done { background: var(--green-muted); border-color: var(--green-muted); color: var(--cream); }
+    .chk.pending { border-color: var(--gold); }
+    .chk.ballot-chk { border-color: #9a80c8; color: #9a80c8; font-size: 12px; }
+    .book-label { flex: 1; }
+    .book-label .bt {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px; font-weight: 500; color: var(--text); line-height: 1.25;
+    }
+    .book-label .bs {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 13px; color: var(--text-light); margin-top: 2px;
+    }
+    .book-label .bc {
+      display: flex; align-items: center; gap: 5px; margin-top: 5px;
+      font-family: 'Inter', sans-serif;
+      font-size: 9px; letter-spacing: 1.2px; text-transform: uppercase;
+    }
+    .dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+    .dot-paid   { background: #3a7a4e; }
+    .dot-book   { background: #b8860b; }
+    .dot-await  { background: #c0631a; }
+    .dot-ballot { background: #7a5aaa; }
+    .bc-done   { color: #3a7a4e; }
+    .bc-book   { color: #b8860b; }
+    .bc-await  { color: #c0631a; }
+    .bc-ballot { color: #7a5aaa; }
+
+    .ballot-block { padding: 0 20px; }
+    .ballot-grid { border-top: 1px solid var(--border); }
+    .ballot-row {
+      display: grid;
+      grid-template-columns: 22px 68px 68px 1fr;
+      gap: 0.4rem; align-items: center;
+      padding: 9px 0;
+      border-bottom: 1px dotted var(--border-dot);
+      font-size: 14px;
+    }
+    .ballot-row:last-child { border-bottom: none; }
+    .ballot-row.bh {
+      font-family: 'Inter', sans-serif;
+      font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--text-light); padding-bottom: 6px;
+    }
+    .bn { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; color: var(--gold); }
+    .ballot-note-text {
+      font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 13px; color: var(--text-light);
+    }
+    .ballot-note-p {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 13px; color: var(--text-light); padding: 8px 0 0;
+    }
+
+    /* ── BUDGET ── */
+    .budget-totals {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      background: var(--green); border-bottom: 1px solid var(--gold);
+    }
+    .btc {
+      padding: 16px 10px; text-align: center;
+      border-right: 1px solid rgba(201,164,73,0.25);
+    }
+    .btc:last-child { border-right: none; }
+    .btc-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 4px;
+    }
+    .btc-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 500; color: var(--cream); line-height: 1;
+    }
+    .btc-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 12px;
+      color: rgba(244,237,224,0.45); margin-top: 3px;
+    }
+    .budget-wrap { padding: 0 20px 20px; }
+    .budget-table { width: 100%; border-collapse: collapse; }
+    .budget-table th {
+      font-family: 'Inter', sans-serif;
+      font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--text-light); padding: 14px 0 6px; text-align: left;
+      border-bottom: 1px solid var(--gold-rule); font-weight: 500;
+    }
+    .budget-table th.r { text-align: right; }
+    .budget-table td {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px; padding: 9px 0;
+      border-bottom: 1px dotted var(--border-dot); vertical-align: middle;
+    }
+    .budget-table td.r { text-align: right; }
+    .budget-table tr:last-child td { border-bottom: none; }
+    .budget-cat td {
+      font-family: 'Inter', sans-serif;
+      font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--text-muted); padding: 14px 0 4px; border-bottom: none;
+    }
+    .budget-sub td {
+      font-weight: 600; border-top: 1px solid var(--gold-rule);
+      border-bottom: none; padding-top: 10px;
+    }
+    .budget-grand td {
+      font-size: 18px; font-weight: 600; color: var(--green);
+      border-top: 2px solid var(--gold); border-bottom: none; padding-top: 10px;
+    }
+    .st-paid  { color: #3a7a4e; font-style: italic; font-size: 13px; }
+    .st-book  { color: #b8860b; font-style: italic; font-size: 13px; }
+    .st-await { color: #c0631a; font-style: italic; font-size: 13px; }
+    .st-est   { color: var(--text-light); font-style: italic; font-size: 13px; }
+    .budget-footer {
+      margin: 0 20px 20px; padding: 12px 0;
+      border-top: 1px solid var(--border);
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 14px; color: var(--text-light);
+    }
+
+    @media (max-width: 479px) {
+      .budget-table th:nth-child(3), .budget-table td:nth-child(3) { display: none; }
+      .btc-val { font-size: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════ TODAY ══════════════ -->
+<div id="tab-today" class="tab-pane active"></div>
+
+<!-- ══════════════ TRIP ══════════════ -->
+<div id="tab-trip" class="tab-pane"></div>
+
+<!-- ══════════════ BOOKINGS ══════════════ -->
+<div id="tab-bookings" class="tab-pane">
+
+  <div class="leg-header no-top">
+    <h2>Leg 1 · East Lothian</h2>
+    <p>North Berwick · 19–23 July · 4 nights</p>
+  </div>
+
+  <div class="sec-title">Accommodation</div>
+  <div class="book-block">
+    <div class="book-item">
+      <div class="chk done">✓</div>
+      <div class="book-label">
+        <div class="bt">6A Dirleton Ave B&amp;B — 4 nights (Jul 19–23)</div>
+        <div class="bs">£180/night incl. breakfast · Alan</div>
+        <div class="bc bc-done"><span class="dot dot-paid"></span>Booked &amp; Paid</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-title">Golf</div>
+  <div class="book-block">
+    <div class="book-item">
+      <div class="chk done">✓</div>
+      <div class="book-label">
+        <div class="bt">Gullane No. 2 — Mon 20 Jul, 11:28 AM</div>
+        <div class="bs">£200 total · ID 570037 · gullanegolfclub.com</div>
+        <div class="bc bc-done"><span class="dot dot-paid"></span>Booked &amp; Paid</div>
+      </div>
+    </div>
+    <div class="book-item">
+      <div class="chk done">✓</div>
+      <div class="book-label">
+        <div class="bt">Gullane No. 1 — Tue 21 Jul, 2:56 PM</div>
+        <div class="bs">£570 total · ID 570038 · gullanegolfclub.com</div>
+        <div class="bc bc-done"><span class="dot dot-paid"></span>Booked &amp; Paid</div>
+      </div>
+    </div>
+    <div class="book-item">
+      <div class="chk done">✓</div>
+      <div class="book-label">
+        <div class="bt">North Berwick West Links — Thu 23 Jul, 2:00 PM</div>
+        <div class="bs">£640 total · Caddies booked</div>
+        <div class="bc bc-done"><span class="dot dot-paid"></span>Booked &amp; Paid</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="leg-header">
+    <h2>Leg 2 · St Andrews</h2>
+    <p>23–31 July · 8 nights</p>
+  </div>
+
+  <div class="sec-title">Accommodation</div>
+  <div class="book-block">
+    <div class="book-item">
+      <div class="chk pending"></div>
+      <div class="book-label">
+        <div class="bt">21K B&amp;B — 8 nights (Jul 23–31)</div>
+        <div class="bs">21 Kilrymont Road, St Andrews · £1,325 total</div>
+        <div class="bc bc-book"><span class="dot dot-book"></span>To Confirm</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-title">Golf</div>
+  <div class="book-block">
+    <div class="book-item">
+      <div class="chk done">✓</div>
+      <div class="book-label">
+        <div class="bt">Dumbarnie Links — Fri 24 Jul</div>
+        <div class="bs">£700 total · ID 61794 · dumbarnielinks.com</div>
+        <div class="bc bc-done"><span class="dot dot-paid"></span>Booked &amp; Paid</div>
+      </div>
+    </div>
+    <div class="book-item">
+      <div class="chk pending"></div>
+      <div class="book-label">
+        <div class="bt">Kingsbarns — Mon 27 Jul (req. 1–3:30 PM)</div>
+        <div class="bs">£972 total · Reply to Alison · info@kingsbarns.com</div>
+        <div class="bc bc-await"><span class="dot dot-await"></span>Awaiting Confirmation</div>
+      </div>
+    </div>
+    <div class="book-item">
+      <div class="chk pending"></div>
+      <div class="book-label">
+        <div class="bt">New Course — Tue 28 Jul</div>
+        <div class="bs">£310 total · standrews.com/golf</div>
+        <div class="bc bc-book"><span class="dot dot-book"></span>To Book</div>
+      </div>
+    </div>
+    <div class="book-item">
+      <div class="chk ballot-chk">◇</div>
+      <div class="book-label">
+        <div class="bt">Old Course — Ballot</div>
+        <div class="bs">£710 total if it hits · 35–50% odds</div>
+        <div class="bc bc-ballot"><span class="dot dot-ballot"></span>Ballot — Not Guaranteed</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-title">Old Course Ballot Tracker</div>
+  <div class="ballot-block">
+    <div class="ballot-grid">
+      <div class="ballot-row bh">
+        <div>#</div><div>Apply</div><div>Play</div><div>Notes</div>
+      </div>
+      <div class="ballot-row">
+        <div class="bn">1</div><div>Wed 7/22</div><div>Fri 7/24</div>
+        <div class="ballot-note-text">If hits, skip Dumbarnie</div>
+      </div>
+      <div class="ballot-row">
+        <div class="bn">2</div><div>Sat 7/25</div><div>Mon 7/27</div>
+        <div class="ballot-note-text">If hits, move Kingsbarns</div>
+      </div>
+      <div class="ballot-row">
+        <div class="bn">3</div><div>Sun 7/26</div><div>Tue 7/28</div>
+        <div class="ballot-note-text">New Course day</div>
+      </div>
+      <div class="ballot-row">
+        <div class="bn">4</div><div>Mon 7/27</div><div>Wed 7/29</div>
+        <div class="ballot-note-text">Flex day</div>
+      </div>
+      <div class="ballot-row">
+        <div class="bn">5</div><div>Tue 7/28</div><div>Thu 7/30</div>
+        <div class="ballot-note-text">Kingsbarns here if moved from Mon</div>
+      </div>
+      <div class="ballot-row">
+        <div class="bn">6</div><div>Wed 7/29</div><div>Fri 7/31</div>
+        <div class="ballot-note-text">Travel day — only if late PM flight</div>
+      </div>
+    </div>
+    <p class="ballot-note-p">Apply each morning for 2 players. Enter by 2:00 PM. Results typically next morning.</p>
+  </div>
+
+  <div class="sec-title" style="margin-top:8px;">Logistics · Whole Trip</div>
+  <div class="book-block">
+    <div class="book-item">
+      <div class="chk pending"></div>
+      <div class="book-label">
+        <div class="bt">Rental Car — EDI, 12 days, Automatic</div>
+        <div class="bs">Jul 19–31 · Hertz / Enterprise / Avis</div>
+        <div class="bc bc-book"><span class="dot dot-book"></span>To Book</div>
+      </div>
+    </div>
+    <div class="book-item">
+      <div class="chk pending"></div>
+      <div class="book-label">
+        <div class="bt">Flight: Nice or Florence → Edinburgh (Jul 19)</div>
+        <div class="bs">Google Flights</div>
+        <div class="bc bc-book"><span class="dot dot-book"></span>To Book</div>
+      </div>
+    </div>
+    <div class="book-item">
+      <div class="chk pending"></div>
+      <div class="book-label">
+        <div class="bt">Flight: Edinburgh → San Sebastián (Jul 31)</div>
+        <div class="bs">Google Flights</div>
+        <div class="bc bc-book"><span class="dot dot-book"></span>To Book</div>
+      </div>
+    </div>
+    <div class="book-item">
+      <div class="chk pending"></div>
+      <div class="book-label">
+        <div class="bt">Ship Sticks — Denver → North Berwick</div>
+        <div class="bs">shipsticks.com</div>
+        <div class="bc bc-book"><span class="dot dot-book"></span>To Book</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /tab-bookings -->
+
+
+<!-- ══════════════ BUDGET ══════════════ -->
+<div id="tab-budget" class="tab-pane">
+
+  <div class="budget-totals">
+    <div class="btc">
+      <div class="btc-label">Total</div>
+      <div class="btc-val">£10,590</div>
+      <div class="btc-sub">~$13,449</div>
+    </div>
+    <div class="btc">
+      <div class="btc-label">Paid</div>
+      <div class="btc-val">£2,110</div>
+      <div class="btc-sub">~$2,680</div>
+    </div>
+    <div class="btc">
+      <div class="btc-label">Remaining</div>
+      <div class="btc-val">£8,480</div>
+      <div class="btc-sub">~$10,769</div>
+    </div>
+  </div>
+
+  <div class="budget-wrap">
+    <table class="budget-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th class="r">Per Person</th>
+          <th class="r">For 2</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="budget-cat"><td colspan="4">Golf — East Lothian</td></tr>
+        <tr>
+          <td>Gullane No. 2 (Mon 7/20)</td>
+          <td class="r">£100</td><td class="r">£200</td><td class="st-paid">Paid</td>
+        </tr>
+        <tr>
+          <td>Gullane No. 1 (Tue 7/21)</td>
+          <td class="r">£285</td><td class="r">£570</td><td class="st-paid">Paid</td>
+        </tr>
+        <tr>
+          <td>North Berwick West (Thu 7/23)</td>
+          <td class="r">£320</td><td class="r">£640</td><td class="st-paid">Paid</td>
+        </tr>
+        <tr class="budget-cat"><td colspan="4">Golf — St Andrews Area</td></tr>
+        <tr>
+          <td>Dumbarnie Links (Fri 7/24)</td>
+          <td class="r">£350</td><td class="r">£700</td><td class="st-paid">Paid</td>
+        </tr>
+        <tr>
+          <td>Kingsbarns (Mon 7/27 req)</td>
+          <td class="r">£486</td><td class="r">£972</td><td class="st-await">Awaiting</td>
+        </tr>
+        <tr>
+          <td>New Course</td>
+          <td class="r">£155</td><td class="r">£310</td><td class="st-book">To Book</td>
+        </tr>
+        <tr>
+          <td>New Course (flex backup)</td>
+          <td class="r">£155</td><td class="r">£310</td><td class="st-book">To Book</td>
+        </tr>
+        <tr class="budget-cat"><td colspan="4">Caddies</td></tr>
+        <tr>
+          <td>NB West + Kingsbarns (4 caddies)</td>
+          <td class="r">£200</td><td class="r">£400</td><td class="st-est">£80 + tip</td>
+        </tr>
+        <tr class="budget-cat"><td colspan="4">Accommodation</td></tr>
+        <tr>
+          <td>6A Dirleton Ave B&amp;B — 4 nights</td>
+          <td class="r">£360</td><td class="r">£720</td><td class="st-book">To Confirm</td>
+        </tr>
+        <tr>
+          <td>21K B&amp;B — 8 nights</td>
+          <td class="r">£663</td><td class="r">£1,325</td><td class="st-book">To Confirm</td>
+        </tr>
+        <tr class="budget-cat"><td colspan="4">Transport &amp; Logistics</td></tr>
+        <tr>
+          <td>Rental car — 12 days</td>
+          <td class="r">£425</td><td class="r">£850</td><td class="st-est">Shared</td>
+        </tr>
+        <tr>
+          <td>Fuel — ~600 miles</td>
+          <td class="r">£75</td><td class="r">£150</td><td class="st-est">Est.</td>
+        </tr>
+        <tr>
+          <td>Ship Sticks (per set)</td>
+          <td class="r">£400</td><td class="r">£800</td><td class="st-book">To Book</td>
+        </tr>
+        <tr class="budget-cat"><td colspan="4">Food &amp; Drink</td></tr>
+        <tr>
+          <td>12 days × £70/day</td>
+          <td class="r">£840</td><td class="r">£1,680</td><td class="st-est">Est.</td>
+        </tr>
+        <tr class="budget-sub">
+          <td>Subtotal</td>
+          <td class="r">£4,814</td><td class="r">£9,627</td><td></td>
+        </tr>
+        <tr class="budget-sub">
+          <td>+ 10% Contingency</td>
+          <td class="r">£5,295</td><td class="r">£10,590</td><td></td>
+        </tr>
+        <tr class="budget-grand">
+          <td>Total (USD ~1.27)</td>
+          <td class="r">$6,725</td><td class="r">$13,449</td><td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="budget-footer">
+    Old Course ballot not included in totals. Add £710 (for 2) if it hits.
+  </div>
+
+</div><!-- /tab-budget -->
+
+
+<!-- ══════════════ BOTTOM NAV ══════════════ -->
+<nav class="bottom-nav">
+  <button class="nav-btn active" onclick="showTab('today',this)">
+    <span class="nav-ico">i.</span>
+    <span class="nav-lbl">Today</span>
+  </button>
+  <button class="nav-btn" onclick="showTab('trip',this)">
+    <span class="nav-ico">ii.</span>
+    <span class="nav-lbl">Trip</span>
+  </button>
+  <button class="nav-btn" onclick="showTab('bookings',this)">
+    <span class="nav-ico">iii.</span>
+    <span class="nav-lbl">Bookings</span>
+  </button>
+  <button class="nav-btn" onclick="showTab('budget',this)">
+    <span class="nav-ico">iv.</span>
+    <span class="nav-lbl">Budget</span>
+  </button>
+</nav>
+
+
+<script>
+/* ═══════════════════════════════════════════
+   TRIP DATA
+═══════════════════════════════════════════ */
+const TRIP_DAYS = [
+  {
+    date: '2026-07-19',
+    type: 'transit',
+    headline: 'Travel · Arrival Day',
+    location: 'east-lothian',
+    hero: null,
+    events: [
+      { time: 'AM',       name: 'Arrive Edinburgh Airport',    detail: 'EDI · collect rental car',            address: 'Edinburgh Airport, Edinburgh EH12 9DN', phone: null },
+      { time: '~11:00',   name: 'Drive to North Berwick',      detail: '45 min via A1',                       address: null, phone: null },
+      { time: 'Noon',     name: 'Check in · 6A Dirleton Ave',  detail: "Alan's B&B · 4 nights",              address: '6A Dirleton Ave, North Berwick EH39 4AY', phone: null },
+      { time: 'Evening',  name: 'Explore North Berwick',       detail: 'Harbour · High Street · dinner',      address: null, phone: null },
+    ],
+    banner: null,
+    tip: 'The Ship Inn on the waterfront pours a proper pint with a view straight out to Bass Rock — a fine way to start a Scottish golf trip.',
+  },
+  {
+    date: '2026-07-20',
+    type: 'golf',
+    headline: 'Golf · Gullane No. 2',
+    location: 'east-lothian',
+    hero: {
+      label: "TODAY'S ROUND",
+      name: 'Gullane No. 2',
+      sub: 'Gullane Golf Club · Est. 1882',
+      teeTime: '11:28 AM',
+      arriveBy: '10:45 AM',
+    },
+    events: [
+      { time: '8:00 AM',  name: 'Breakfast at 6A Dirleton Ave', detail: "Alan's full Scottish",               address: '6A Dirleton Ave, North Berwick EH39 4AY', phone: null },
+      { time: '10:30 AM', name: 'Drive to Gullane',             detail: '10 min west on A198',                address: null, phone: null },
+      { time: '11:28 AM', name: 'Tee off — Gullane No. 2',      detail: 'ID 570037 · £200 for two',           address: 'East Links Road, Gullane EH31 2BB', phone: '+44 1620 842255' },
+      { time: '~4:00 PM', name: 'Return to North Berwick',      detail: 'Evening free',                       address: null, phone: null },
+    ],
+    banner: 'Gullane No. 2 · Booked & Paid · ID 570037',
+    tip: 'No. 2 is the ideal warm-up — slightly less exposed than No. 1 and a perfect read of Gullane turf before the championship course tomorrow.',
+  },
+  {
+    date: '2026-07-21',
+    type: 'golf',
+    headline: 'Golf · Gullane No. 1',
+    location: 'east-lothian',
+    hero: {
+      label: "TODAY'S ROUND",
+      name: 'Gullane No. 1',
+      sub: 'Championship Links · Est. 1882',
+      teeTime: '2:56 PM',
+      arriveBy: '2:10 PM',
+    },
+    events: [
+      { time: '8:00 AM',  name: 'Breakfast at 6A Dirleton Ave', detail: '',                                    address: '6A Dirleton Ave, North Berwick EH39 4AY', phone: null },
+      { time: '2:00 PM',  name: 'Drive to Gullane',             detail: '10 min west on A198',                 address: null, phone: null },
+      { time: '2:56 PM',  name: 'Tee off — Gullane No. 1',      detail: 'ID 570038 · £570 for two',            address: 'East Links Road, Gullane EH31 2BB', phone: '+44 1620 842255' },
+      { time: '~8:00 PM', name: 'Dinner in Gullane or NB',      detail: '',                                    address: null, phone: null },
+    ],
+    banner: 'Gullane No. 1 · Booked & Paid · ID 570038',
+    tip: 'From the 13th tee on a clear day you can see the Isle of May, Bass Rock, and Berwick Law simultaneously — take a moment before you play.',
+  },
+  {
+    date: '2026-07-22',
+    type: 'rest',
+    headline: 'Rest Day · North Berwick',
+    location: 'east-lothian',
+    hero: null,
+    events: [
+      { time: 'Morning',   name: 'Tantallon Castle',            detail: 'Red sandstone fortress · Est. 1350',  address: 'Dunbar Road, North Berwick EH39 5PN', phone: '+44 131 668 8600' },
+      { time: 'Afternoon', name: 'Scottish Seabird Centre',     detail: 'Bass Rock gannet colony · live cams', address: 'The Harbour, North Berwick EH39 4SS', phone: '+44 1620 890202' },
+      { time: 'Evening',   name: 'Last night out in North Berwick', detail: 'High Street · Waterfront',       address: null, phone: null },
+    ],
+    banner: null,
+    tip: "Tantallon's gatehouse dates to 1350 and the view back down the East Lothian coast from the cliff edge is worth the three-mile drive east of town.",
+  },
+  {
+    date: '2026-07-23',
+    type: 'golf',
+    headline: 'Golf · NB West Links',
+    location: 'east-lothian',
+    hero: {
+      label: "TODAY'S ROUND",
+      name: 'North Berwick West Links',
+      sub: 'The Old Tom Morris · Est. 1832',
+      teeTime: '2:00 PM',
+      arriveBy: '1:15 PM',
+    },
+    events: [
+      { time: '8:00 AM',  name: 'Breakfast at 6A Dirleton Ave', detail: 'Last morning with Alan',             address: '6A Dirleton Ave, North Berwick EH39 4AY', phone: null },
+      { time: '10:00 AM', name: 'Pack out & check out',         detail: 'Check-out by noon',                  address: null, phone: null },
+      { time: '2:00 PM',  name: "Tee off — West Links",         detail: "Caddies confirmed · meet at starter's hut", address: 'West Links, North Berwick EH39 4LE', phone: '+44 1620 892135' },
+      { time: '~6:30 PM', name: 'Drive to St Andrews',          detail: '97 mi via M90 · ~2 hrs',             address: null, phone: null },
+      { time: '~9:00 PM', name: 'Check in · 21K B&B',           detail: '21 Kilrymont Road · 8 nights',       address: '21 Kilrymont Road, St Andrews KY16 8DE', phone: null },
+    ],
+    banner: 'Two caddies confirmed · £80 + tip each',
+    tip: "The 15th at West Links is the original Redan — template for holes at The National and beyond. Play to the left portion of the green; the slope feeds the ball toward the pin.",
+  },
+  {
+    date: '2026-07-24',
+    type: 'golf',
+    headline: 'Golf · Dumbarnie Links',
+    location: 'st-andrews',
+    hero: {
+      label: "TODAY'S ROUND",
+      name: 'Dumbarnie Links',
+      sub: 'Clive Clark Design · Est. 2020',
+      teeTime: 'TBD',
+      arriveBy: null,
+    },
+    events: [
+      { time: 'Morning',  name: 'Breakfast at 21K B&B',         detail: '21 Kilrymont Road',                  address: '21 Kilrymont Road, St Andrews KY16 8DE', phone: null },
+      { time: '~9:00 AM', name: 'Drive to Dumbarnie',           detail: '30 min south via A915',              address: null, phone: null },
+      { time: 'TBD',      name: 'Tee off — Dumbarnie Links',    detail: 'ID 61794 · £700 for two',            address: 'Dumbarnie Links, Leven KY8 5PR', phone: '+44 1333 310560' },
+      { time: 'Evening',  name: 'Return to St Andrews',         detail: '',                                    address: null, phone: null },
+    ],
+    banner: 'Dumbarnie Links · Booked & Paid · ID 61794',
+    tip: "Dumbarnie's back nine runs along the Eden Estuary with views across to St Andrews — on holes 13 through 15 expect to play directly into whatever the Forth is throwing at you.",
+  },
+  {
+    date: '2026-07-25',
+    type: 'rest',
+    headline: 'Rest Day · St Andrews',
+    location: 'st-andrews',
+    hero: null,
+    events: [
+      { time: 'Morning',   name: "St Andrews Cathedral & Castle", detail: "St Rule's Tower · views over town", address: 'The Pends, St Andrews KY16 9QL', phone: null },
+      { time: 'Afternoon', name: 'Walk the town',                 detail: 'Market Street · Bottle Dungeon',    address: null, phone: null },
+      { time: 'Evening',   name: 'Dinner in St Andrews',          detail: 'The Seafood Ristorante or The Dunvegan', address: null, phone: null },
+    ],
+    banner: null,
+    tip: 'The R&A Clubhouse Museum on the Links is free to enter and genuinely excellent — the golf ball evolution display alone is worth 20 minutes.',
+  },
+  {
+    date: '2026-07-26',
+    type: 'rest',
+    headline: 'Day Off · Walk Old Course',
+    location: 'st-andrews',
+    hero: null,
+    events: [
+      { time: 'Morning',   name: 'Walk the Old Course',          detail: 'Closed Sundays · public access',    address: 'Pilmour Links, St Andrews KY16 9SF', phone: null },
+      { time: 'Afternoon', name: 'Drive to Anstruther',          detail: '10 miles south on A917 · 25 min',  address: null, phone: null },
+      { time: '~1:00 PM',  name: 'Anstruther Fish Bar',          detail: 'Best fish & chips in Fife',         address: 'Shore Street, Anstruther KY10 3AQ', phone: '+44 1333 310518' },
+      { time: 'Evening',   name: 'Return to St Andrews',         detail: '',                                   address: null, phone: null },
+    ],
+    banner: null,
+    tip: 'Walking the Old Course on a Sunday is a St Andrews ritual — follow the rope lines past the Road Hole bunker and walk back into town along the 18th. Takes about 90 minutes at a wander.',
+  },
+  {
+    date: '2026-07-27',
+    type: 'golf',
+    headline: 'Golf · Kingsbarns',
+    location: 'st-andrews',
+    hero: {
+      label: "TODAY'S ROUND",
+      name: 'Kingsbarns Golf Links',
+      sub: 'Kyle Phillips Design · Est. 2000',
+      teeTime: 'TBD',
+      arriveBy: null,
+    },
+    events: [
+      { time: 'Morning', name: 'Breakfast at 21K B&B',           detail: '21 Kilrymont Road',                 address: '21 Kilrymont Road, St Andrews KY16 8DE', phone: null },
+      { time: 'TBD',     name: 'Drive to Kingsbarns',            detail: '15 min south-east on B9131',        address: null, phone: null },
+      { time: 'TBD',     name: 'Tee off — Kingsbarns',           detail: 'Reply to Alison · £972 for two',    address: 'Kingsbarns, St Andrews KY16 8QD', phone: '+44 1334 460860' },
+    ],
+    banner: 'Two caddies confirmed · £80 + tip each',
+    tip: 'Kingsbarns is in view of the sea from nearly every hole. The 15th green sits directly above the water — in any wind above 10 mph, take one more club than you think.',
+  },
+  {
+    date: '2026-07-28',
+    type: 'golf',
+    headline: 'Golf · New Course',
+    location: 'st-andrews',
+    hero: {
+      label: "TODAY'S ROUND",
+      name: 'St Andrews New Course',
+      sub: 'The Links Trust · Est. 1895',
+      teeTime: 'TBD',
+      arriveBy: null,
+    },
+    events: [
+      { time: 'Morning', name: 'Breakfast at 21K B&B',           detail: '',                                   address: '21 Kilrymont Road, St Andrews KY16 8DE', phone: null },
+      { time: 'TBD',     name: 'Tee off — New Course',           detail: '£310 for two · standrews.com/golf', address: 'Pilmour Links, St Andrews KY16 9SF', phone: '+44 1334 466666' },
+      { time: 'Evening', name: 'Dinner in St Andrews',           detail: '',                                   address: null, phone: null },
+    ],
+    banner: null,
+    tip: "The New Course is the most underrated round in St Andrews — without the Old Course mystique it gets a fraction of the visitors, but plays through classic links terrain. The 5th and 6th along the Swilcan Burn are quietly beautiful.",
+  },
+  {
+    date: '2026-07-29',
+    type: 'flex',
+    headline: 'Flex · Old Course or Jubilee',
+    location: 'st-andrews',
+    hero: null,
+    events: [
+      { time: '7:00 AM', name: 'Old Course ballot result',       detail: 'Check email · results arrive overnight', address: null, phone: null },
+      { time: 'TBD',     name: 'Golf — ballot, Jubilee, or rest', detail: 'Links Trust: +44 1334 466666',       address: 'Pilmour Links, St Andrews KY16 9SF', phone: '+44 1334 466666' },
+    ],
+    banner: null,
+    tip: "If the ballot hits, the walk-on desk opens at 7 AM — be there by 6:45 as a backup. If not, the Jubilee is the boldest of the Links Trust courses and arguably the fairest test.",
+  },
+  {
+    date: '2026-07-30',
+    type: 'flex',
+    headline: 'Flex · Kingsbarns or Dumbarnie',
+    location: 'st-andrews',
+    hero: null,
+    events: [
+      { time: 'TBD',     name: 'Golf — Kingsbarns or Dumbarnie', detail: 'Depends on Monday Kingsbarns outcome', address: null, phone: null },
+      { time: 'Evening', name: 'Final dinner in St Andrews',     detail: 'Seafood Ristorante · book ahead',   address: null, phone: null },
+    ],
+    banner: null,
+    tip: "Whatever today brings, The Seafood Ristorante on the pier does a fixed pre-theatre menu at 6 PM that fills fast on summer evenings — worth booking ahead.",
+  },
+  {
+    date: '2026-07-31',
+    type: 'transit',
+    headline: 'Travel · Fly to San Sebastián',
+    location: 'st-andrews',
+    hero: null,
+    events: [
+      { time: 'Morning',  name: 'Check out · 21K B&B',           detail: 'Pack bags · settle up',              address: '21 Kilrymont Road, St Andrews KY16 8DE', phone: null },
+      { time: '~8:00 AM', name: 'Drive to Edinburgh Airport',    detail: '54 mi · ~1.5 hrs via M90',           address: 'Edinburgh Airport, Edinburgh EH12 9DN', phone: null },
+      { time: 'On arrival', name: 'Return rental car',           detail: 'Drop off at EDI',                    address: null, phone: null },
+      { time: 'TBD',      name: 'Fly to San Sebastián',          detail: 'Next adventure begins',              address: null, phone: null },
+    ],
+    banner: null,
+    tip: "The road out of St Andrews on the A91 gives one last look back at the town — St Rule's Tower on the skyline. You won't forget it.",
+  },
+];
+
+const TRIP_START = new Date(2026, 6, 19);
+const TRIP_END   = new Date(2026, 6, 31);
+
+const COORDS = {
+  'east-lothian': { lat: 56.0576, lon: -2.7264 },
+  'st-andrews':   { lat: 56.3398, lon: -2.7967 },
+};
+
+/* ═══════════════════════════════════════════
+   HELPERS
+═══════════════════════════════════════════ */
+function getDayIndex() {
+  const today = new Date(); today.setHours(0,0,0,0);
+  if (today < TRIP_START) return -1;
+  if (today > TRIP_END)   return 13;
+  return Math.min(Math.floor((today - TRIP_START) / 86400000), 12);
+}
+
+function formatFullDate(dateStr) {
+  return new Date(dateStr + 'T12:00:00')
+    .toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' });
+}
+
+function formatShortDate(dateStr) {
+  return new Date(dateStr + 'T12:00:00')
+    .toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
+}
+
+const DAY_WORDS = ['one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen'];
+function dayOfTrip(idx) {
+  return 'Day ' + DAY_WORDS[idx] + ' of thirteen';
+}
+
+function wmoCondition(code) {
+  if (code === 0) return 'Clear sky';
+  if (code === 1) return 'Mainly clear';
+  if (code === 2) return 'Partly cloudy';
+  if (code === 3) return 'Overcast';
+  if (code <= 48) return 'Fog';
+  if (code <= 55) return 'Drizzle';
+  if (code <= 65) return 'Rain';
+  if (code <= 77) return 'Snow';
+  if (code <= 82) return 'Showers';
+  return 'Thunderstorm';
+}
+
+function degToCardinal(deg) {
+  return ['N','NE','E','SE','S','SW','W','NW'][Math.round(deg / 45) % 8];
+}
+
+async function fetchWeather(location) {
+  const { lat, lon } = COORDS[location];
+  try {
+    const r = await fetch(
+      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}` +
+      `&current=temperature_2m,weather_code,wind_speed_10m,wind_direction_10m&wind_speed_unit=mph`
+    );
+    return (await r.json()).current;
+  } catch { return null; }
+}
+
+function renderWeatherStrip(w) {
+  const temp = w ? `${Math.round(w.temperature_2m)}°C` : '—';
+  const cond = w ? wmoCondition(w.weather_code) : '—';
+  const wind = w ? `${Math.round(w.wind_speed_10m)} ${degToCardinal(w.wind_direction_10m)}` : '—';
+  return `<div class="weather-strip">
+    <div class="ws-cell">
+      <div class="ws-val">${temp}</div>
+      <div class="ws-key">Temp</div>
+    </div>
+    <div class="ws-cell">
+      <div class="ws-val" style="font-size:14px;line-height:1.3;">${cond}</div>
+      <div class="ws-key">Conditions</div>
+    </div>
+    <div class="ws-cell">
+      <div class="ws-val" style="font-size:15px;">${wind}</div>
+      <div class="ws-key">Wind mph</div>
+    </div>
+  </div>`;
+}
+
+function renderScheduleRow(ev) {
+  const detail  = ev.detail  ? `<div class="sched-detail">${ev.detail}</div>` : '';
+  const address = ev.address ? `<a class="sched-address" href="https://maps.google.com/?q=${encodeURIComponent(ev.address)}" target="_blank" rel="noopener">${ev.address}</a>` : '';
+  const phone   = ev.phone   ? `<a class="sched-phone" href="tel:${ev.phone.replace(/\s/g,'')}">${ev.phone}</a>` : '';
+  return `<div class="sched-row">
+    <div class="sched-left">
+      <div class="sched-name">${ev.name}</div>
+      ${detail}${address}${phone}
+    </div>
+    <div class="sched-time">${ev.time}</div>
+  </div>`;
+}
+
+function renderDayBody(day, opts) {
+  const showTip     = opts && opts.showTip !== false;
+  const showWeather = opts && opts.showWeather === true;
+
+  // Hero
+  let heroHTML = '';
+  if (day.hero) {
+    const h = day.hero;
+    const timeHTML = h.teeTime === 'TBD'
+      ? `<div class="hero-time" style="font-size:34px;letter-spacing:0;">Tee TBD</div>`
+      : `<div class="hero-time">${h.teeTime}</div>`;
+    const sub2 = h.arriveBy ? `arrive by ${h.arriveBy}` : 'confirm tee time';
+    heroHTML = `<div class="day-hero">
+      <div class="hero-label">${h.label}</div>
+      <div class="hero-name">${h.name}</div>
+      <div class="hero-sub">${h.sub}</div>
+      ${timeHTML}
+      <div class="hero-time-sub">${sub2}</div>
+    </div>`;
+  } else {
+    const caption = day.type === 'transit' ? 'Travel Day' : day.type === 'flex' ? 'Flex Day' : 'Rest Day';
+    const title   = day.headline.replace(/^[^·]+·\s*/, '');
+    heroHTML = `<div class="day-hero is-quiet">
+      <div class="hero-label">${caption}</div>
+      <div class="hero-name">${title || day.headline}</div>
+    </div>`;
+  }
+
+  const weatherSlot = showWeather ? `<div id="wx-slot">${renderWeatherStrip(null)}</div>` : '';
+  const eventsHTML  = day.events.map(renderScheduleRow).join('');
+  const bannerHTML  = day.banner
+    ? `<div class="conf-banner"><div class="conf-label">Confirmed</div><div class="conf-val">${day.banner}</div></div>`
+    : '';
+  const tipHTML = showTip && day.tip
+    ? `<div class="tip-card"><div class="tip-text">${day.tip}</div></div>`
+    : '';
+
+  return `${weatherSlot}${heroHTML}
+    <div class="section-title">The Day's Plan</div>
+    <div class="sched-block">${eventsHTML}</div>
+    ${bannerHTML}${tipHTML}`;
+}
+
+/* ═══════════════════════════════════════════
+   TAB: TODAY
+═══════════════════════════════════════════ */
+function buildToday() {
+  const el  = document.getElementById('tab-today');
+  const idx = getDayIndex();
+
+  if (idx === -1) {
+    const today = new Date(); today.setHours(0,0,0,0);
+    const n = Math.floor((TRIP_START - today) / 86400000);
+    const preview = TRIP_DAYS[0];
+    el.innerHTML = `
+      <header class="topbar">
+        <div class="crest">Scotland Golf 2026</div>
+        <div class="date">Counting Down</div>
+        <div class="day-no">David &amp; Patrick · 19–31 July</div>
+      </header>
+      <div class="countdown">
+        <div class="cd-label">Trip starts in</div>
+        <div class="cd-num">${n}</div>
+        <div class="cd-unit">${n === 1 ? 'day' : 'days'}</div>
+        <div class="cd-sub">Edinburgh · 19 July 2026</div>
+      </div>
+      <div id="wx-slot">${renderWeatherStrip(null)}</div>
+      <div class="section-title">Day One Preview</div>
+      <div class="sched-block">${preview.events.map(renderScheduleRow).join('')}</div>
+      <div class="tip-card"><div class="tip-text">${preview.tip}</div></div>`;
+    fetchWeather('east-lothian').then(w => {
+      const s = document.getElementById('wx-slot');
+      if (s) s.innerHTML = renderWeatherStrip(w);
+    });
+    return;
+  }
+
+  if (idx === 13) {
+    const last = TRIP_DAYS[12];
+    el.innerHTML = `
+      <header class="topbar">
+        <div class="crest">Scotland Golf 2026</div>
+        <div class="date">Trip Complete</div>
+        <div class="day-no">19–31 July 2026 · David &amp; Patrick</div>
+      </header>
+      <div class="lookback">
+        <div class="lb-label">What a trip</div>
+        <div class="lb-title">The road home from St Andrews</div>
+      </div>
+      <div class="section-title">Final Day</div>
+      <div class="sched-block">${last.events.map(renderScheduleRow).join('')}</div>
+      <div class="tip-card"><div class="tip-text">${last.tip}</div></div>`;
+    return;
+  }
+
+  const day = TRIP_DAYS[idx];
+  el.innerHTML = `
+    <header class="topbar">
+      <div class="crest">Scotland Golf 2026</div>
+      <div class="date">${formatFullDate(day.date)}</div>
+      <div class="day-no">${dayOfTrip(idx)}</div>
+    </header>
+    ${renderDayBody(day, { showWeather: true, showTip: true })}`;
+
+  fetchWeather(day.location).then(w => {
+    const s = document.getElementById('wx-slot');
+    if (s) s.innerHTML = renderWeatherStrip(w);
+  });
+}
+
+/* ═══════════════════════════════════════════
+   TAB: TRIP
+═══════════════════════════════════════════ */
+function buildTrip() {
+  const el  = document.getElementById('tab-trip');
+  const idx = getDayIndex();
+
+  const dotClass = { golf: 'tdot-golf', rest: 'tdot-rest', transit: 'tdot-transit', flex: 'tdot-flex' };
+
+  const rows = TRIP_DAYS.map((day, i) => {
+    const isToday = (i === idx);
+    return `<div class="trip-day${isToday ? ' is-today' : ''}" id="td-${i}">
+      <div class="trip-row${isToday ? ' open' : ''}" onclick="toggleDay(${i})">
+        <div class="trip-daynum">${i + 1}</div>
+        <div class="trip-dot ${dotClass[day.type] || 'tdot-rest'}"></div>
+        <div class="trip-meta">
+          <div class="trip-date">${formatShortDate(day.date)}</div>
+          <div class="trip-headline">${day.headline}</div>
+        </div>
+        <div class="trip-chevron">▾</div>
+      </div>
+      <div class="trip-body${isToday ? ' open' : ''}" id="tb-${i}">
+        <div class="trip-body-inner">
+          ${renderDayBody(day, { showWeather: false, showTip: false })}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  el.innerHTML = rows;
+
+  if (idx >= 0 && idx < 13) {
+    requestAnimationFrame(() => {
+      document.getElementById('td-' + idx)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+}
+
+function toggleDay(i) {
+  TRIP_DAYS.forEach((_, j) => {
+    if (j !== i) {
+      document.getElementById('tb-' + j)?.classList.remove('open');
+      document.querySelector('#td-' + j + ' .trip-row')?.classList.remove('open');
+    }
+  });
+  document.getElementById('tb-' + i)?.classList.toggle('open');
+  document.querySelector('#td-' + i + ' .trip-row')?.classList.toggle('open');
+}
+
+/* ═══════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════ */
+function showTab(name, btn) {
+  document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ── INIT ── */
+buildToday();
+buildTrip();
+</script>
+</body>
+</html>

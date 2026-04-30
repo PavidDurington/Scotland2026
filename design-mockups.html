@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Scotland Golf 2026 — Design Directions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: #f3efe6;
+    color: #1c1c1c;
+    padding: 48px 24px 96px;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+  }
+  .page-header {
+    max-width: 1280px;
+    margin: 0 auto 48px;
+    text-align: center;
+  }
+  .page-header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 40px;
+    letter-spacing: -0.5px;
+    color: #1a2e1e;
+    margin-bottom: 8px;
+  }
+  .page-header p {
+    color: #5a5a55;
+    font-size: 15px;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  @media (max-width: 1100px) {
+    .grid { grid-template-columns: 1fr; max-width: 420px; }
+  }
+  .col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .col-label {
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .col-label .tag {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #8a7a4d;
+    background: #fff;
+    border: 1px solid #d8c98d;
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+  }
+  .col-label h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #1a2e1e;
+    margin-bottom: 4px;
+  }
+  .col-label p {
+    font-size: 13px;
+    color: #6e6e68;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  /* ========= PHONE FRAME ========= */
+  .phone {
+    width: 380px;
+    height: 780px;
+    background: #111;
+    border-radius: 44px;
+    padding: 12px;
+    box-shadow: 0 24px 60px rgba(20, 30, 24, 0.18), 0 4px 12px rgba(20, 30, 24, 0.08);
+    position: relative;
+    overflow: hidden;
+  }
+  .phone::before {
+    content: '';
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 110px;
+    height: 28px;
+    background: #111;
+    border-radius: 16px;
+    z-index: 10;
+  }
+  .screen {
+    width: 100%;
+    height: 100%;
+    border-radius: 32px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+  }
+  .screen::-webkit-scrollbar { display: none; }
+  .status-bar {
+    height: 44px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 0 28px 6px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+  }
+  .status-bar .right { display: flex; gap: 4px; align-items: center; }
+  .status-icons { font-size: 12px; }
+
+  /* ============================================================ */
+  /* DIRECTION A — REFINED HERITAGE                                */
+  /* Dark forest green / cream / gold. Serif.                      */
+  /* Like a private club's program book. Quiet luxury.             */
+  /* ============================================================ */
+  .a .screen { background: #f4ede0; color: #1a2e1e; }
+  .a .status-bar { background: #1a2e1e; color: #f4ede0; height: 50px; padding-top: 14px; align-items: center; }
+
+  .a .topbar {
+    background: #1a2e1e;
+    color: #f4ede0;
+    padding: 10px 22px 22px;
+    text-align: center;
+    border-bottom: 1px solid #c9a449;
+  }
+  .a .topbar .crest {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #c9a449;
+    margin-bottom: 4px;
+  }
+  .a .topbar .day-no {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: #d8d2c1;
+  }
+  .a .topbar .date {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 500;
+    margin-top: 2px;
+  }
+
+  .a .hero {
+    padding: 28px 22px 24px;
+    text-align: center;
+    background:
+      radial-gradient(ellipse at top, rgba(201, 164, 73, 0.07), transparent 60%),
+      #f4ede0;
+    border-bottom: 1px solid rgba(26, 46, 30, 0.12);
+  }
+  .a .hero .label {
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #8a7a4d;
+    margin-bottom: 12px;
+  }
+  .a .hero .label::before, .a .hero .label::after {
+    content: '·'; margin: 0 8px; color: #c9a449;
+  }
+  .a .hero .course {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1.1;
+    color: #1a2e1e;
+    margin-bottom: 4px;
+  }
+  .a .hero .sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: #5a6a4e;
+    margin-bottom: 16px;
+  }
+  .a .hero .time {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 56px;
+    font-weight: 500;
+    color: #1a2e1e;
+    letter-spacing: -1px;
+    line-height: 1;
+  }
+  .a .hero .time-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #6e6e68;
+    margin-top: 8px;
+  }
+
+  .a .stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: rgba(26, 46, 30, 0.12);
+    border-bottom: 1px solid rgba(26, 46, 30, 0.12);
+  }
+  .a .stat {
+    background: #f4ede0;
+    padding: 14px 8px;
+    text-align: center;
+  }
+  .a .stat .v {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #1a2e1e;
+    line-height: 1;
+  }
+  .a .stat .k {
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #8a7a4d;
+    margin-top: 6px;
+  }
+
+  .a .section { padding: 22px 22px 0; }
+  .a .section-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #8a7a4d;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+  }
+  .a .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #d8c98d;
+    margin-left: 10px;
+  }
+  .a .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 10px 0;
+    border-bottom: 1px dotted rgba(26, 46, 30, 0.18);
+    font-family: 'Cormorant Garamond', serif;
+  }
+  .a .row:last-child { border-bottom: none; }
+  .a .row .l { font-size: 16px; color: #1a2e1e; font-weight: 500; }
+  .a .row .l small { display: block; font-style: italic; font-size: 12px; color: #6e6e68; font-weight: 400; margin-top: 2px; }
+  .a .row .r { font-size: 13px; color: #5a6a4e; font-style: italic; font-family: 'Cormorant Garamond', serif; }
+
+  .a .caddies {
+    margin: 22px;
+    padding: 14px 16px;
+    background: #1a2e1e;
+    color: #f4ede0;
+    border-radius: 4px;
+    text-align: center;
+    border: 1px solid #c9a449;
+  }
+  .a .caddies .l {
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #c9a449;
+    margin-bottom: 4px;
+  }
+  .a .caddies .v { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 500; }
+
+  .a .nav {
+    position: sticky;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background: #1a2e1e;
+    border-top: 1px solid #c9a449;
+    padding: 10px 0 22px;
+    margin-top: 24px;
+  }
+  .a .nav .item {
+    text-align: center;
+    color: #d8d2c1;
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 0;
+  }
+  .a .nav .item.active { color: #c9a449; }
+  .a .nav .item .ico {
+    display: block;
+    height: 16px;
+    margin-bottom: 4px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+  }
+
+  /* ============================================================ */
+  /* DIRECTION B — LINKSLAND EDITORIAL                             */
+  /* Photo-led. Cream + charcoal. Serif headline + clean sans.     */
+  /* Lots of whitespace. Mr Porter / Cereal vibe.                  */
+  /* ============================================================ */
+  .b .screen { background: #fbf9f4; color: #1d1d1b; }
+  .b .status-bar { background: #fbf9f4; color: #1d1d1b; }
+
+  .b .topbar {
+    padding: 14px 24px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 0.5px solid rgba(0,0,0,0.08);
+  }
+  .b .topbar .meta {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #8a8a82;
+  }
+  .b .topbar .meta strong { color: #1d1d1b; font-weight: 600; }
+  .b .topbar .menu {
+    width: 18px; height: 14px;
+    border-top: 1.5px solid #1d1d1b;
+    border-bottom: 1.5px solid #1d1d1b;
+    position: relative;
+  }
+  .b .topbar .menu::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0; right: 0;
+    height: 1.5px;
+    background: #1d1d1b;
+    margin-top: -0.75px;
+  }
+
+  .b .hero-photo {
+    height: 280px;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 100%),
+      url('https://images.unsplash.com/photo-1535132011086-b8818f016104?w=800&q=80&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    color: #fff;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .b .hero-photo .top-tag {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+  }
+  .b .hero-photo .top-tag .dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: #d4af37;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  .b .hero-photo h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.5px;
+  }
+  .b .hero-photo .sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+    margin-top: 4px;
+  }
+
+  .b .tee-block {
+    padding: 24px 24px 20px;
+    border-bottom: 0.5px solid rgba(0,0,0,0.08);
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+  .b .tee-block .label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #8a8a82;
+  }
+  .b .tee-block .time {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 500;
+    color: #1d1d1b;
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+  .b .tee-block .badge {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #2d5a3d;
+    background: #e8efe5;
+    padding: 4px 10px;
+    border-radius: 3px;
+  }
+
+  .b .stats-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-bottom: 0.5px solid rgba(0,0,0,0.08);
+  }
+  .b .stat {
+    padding: 18px 12px;
+    text-align: left;
+    border-right: 0.5px solid rgba(0,0,0,0.08);
+  }
+  .b .stat:last-child { border-right: none; }
+  .b .stat .k {
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #8a8a82;
+    margin-bottom: 6px;
+  }
+  .b .stat .v {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #1d1d1b;
+    line-height: 1.1;
+  }
+  .b .stat .v small {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: #8a8a82;
+    margin-left: 4px;
+    font-weight: 400;
+  }
+
+  .b .section {
+    padding: 22px 24px 0;
+  }
+  .b .section h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #8a8a82;
+    font-weight: 500;
+    margin-bottom: 14px;
+  }
+  .b .item {
+    padding: 12px 0;
+    border-bottom: 0.5px solid rgba(0,0,0,0.06);
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .b .item:last-child { border-bottom: none; }
+  .b .item .num {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: #b7a268;
+    min-width: 16px;
+    margin-top: 1px;
+  }
+  .b .item .body { flex: 1; }
+  .b .item .ttl {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: #1d1d1b;
+    line-height: 1.3;
+  }
+  .b .item .desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: #6e6e68;
+    margin-top: 2px;
+    line-height: 1.5;
+  }
+  .b .item .when {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: #8a8a82;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+  }
+
+  .b .next-day {
+    margin: 24px;
+    padding: 18px 18px 16px;
+    background: #1d1d1b;
+    color: #fbf9f4;
+    border-radius: 6px;
+  }
+  .b .next-day .k {
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #d4af37;
+    margin-bottom: 6px;
+  }
+  .b .next-day .v {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+  .b .next-day .meta {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 6px;
+  }
+
+  .b .nav {
+    position: sticky;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background: #fbf9f4;
+    border-top: 0.5px solid rgba(0,0,0,0.1);
+    padding: 10px 0 22px;
+  }
+  .b .nav .item-n {
+    text-align: center;
+    color: #8a8a82;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    padding: 4px 0;
+    border: none;
+  }
+  .b .nav .item-n.active { color: #1d1d1b; font-weight: 500; }
+  .b .nav .item-n .ico {
+    display: block;
+    height: 4px;
+    width: 4px;
+    border-radius: 50%;
+    background: transparent;
+    margin: 0 auto 6px;
+  }
+  .b .nav .item-n.active .ico { background: #d4af37; }
+
+  /* ============================================================ */
+  /* DIRECTION C — VINTAGE SCORECARD                               */
+  /* Aged paper, hand-stamped, scorecard motifs.                   */
+  /* IM Fell English type. Most "Scotland-y".                       */
+  /* ============================================================ */
+  .c .screen {
+    background: #ede1c4;
+    color: #2a2520;
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(160, 120, 60, 0.08) 0%, transparent 40%),
+      radial-gradient(ellipse at 80% 90%, rgba(110, 80, 40, 0.06) 0%, transparent 40%),
+      repeating-linear-gradient(90deg, rgba(120, 90, 50, 0.018) 0px, transparent 1px, transparent 6px),
+      repeating-linear-gradient(0deg, rgba(120, 90, 50, 0.018) 0px, transparent 1px, transparent 6px);
+  }
+  .c .status-bar {
+    background: #ede1c4;
+    color: #2a2520;
+  }
+
+  .c .topbar {
+    border-bottom: 2px solid #2a2520;
+    border-top: 1px solid #2a2520;
+    padding: 14px 22px 12px;
+    text-align: center;
+    background: linear-gradient(180deg, transparent, rgba(255,255,255,0.2));
+    position: relative;
+  }
+  .c .topbar::after {
+    content: '';
+    position: absolute;
+    left: 22px; right: 22px;
+    bottom: -5px;
+    height: 1px;
+    background: #2a2520;
+  }
+  .c .topbar .crest {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: #6b4e1f;
+    margin-bottom: 2px;
+  }
+  .c .topbar .scorecard {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: #6b4e1f;
+  }
+  .c .topbar .day-num {
+    font-family: 'IM Fell English', serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: #2a2520;
+    line-height: 1;
+    margin: 4px 0 2px;
+  }
+  .c .topbar .date {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: #2a2520;
+  }
+
+  .c .hole-card {
+    margin: 16px 16px 0;
+    border: 1.5px solid #2a2520;
+    background: #f5ecd3;
+    position: relative;
+  }
+  .c .hole-card::before, .c .hole-card::after {
+    content: '';
+    position: absolute;
+    width: 8px; height: 8px;
+    border: 1px solid #2a2520;
+    background: #ede1c4;
+    transform: rotate(45deg);
+  }
+  .c .hole-card::before { top: -5px; left: 50%; margin-left: -4px; }
+  .c .hole-card::after { bottom: -5px; left: 50%; margin-left: -4px; }
+  .c .hole-card .top {
+    border-bottom: 1px solid #2a2520;
+    text-align: center;
+    padding: 10px 14px 8px;
+    background: #2a2520;
+    color: #ede1c4;
+  }
+  .c .hole-card .top .k {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: #c9a449;
+  }
+  .c .hole-card .top .v {
+    font-family: 'IM Fell English', serif;
+    font-size: 22px;
+    font-weight: 400;
+    margin-top: 1px;
+    letter-spacing: 0.5px;
+  }
+  .c .hole-card .body {
+    padding: 16px 14px 14px;
+    text-align: center;
+  }
+  .c .hole-card .body .est {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 12px;
+    color: #6b4e1f;
+    margin-bottom: 4px;
+  }
+  .c .hole-card .body .time {
+    font-family: 'IM Fell English', serif;
+    font-size: 48px;
+    color: #2a2520;
+    letter-spacing: -1px;
+    line-height: 1;
+  }
+  .c .hole-card .body .meta {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: #2a2520;
+    margin-top: 8px;
+  }
+
+  .c .scoretable {
+    margin: 16px;
+    border: 1px solid #2a2520;
+    border-collapse: collapse;
+    width: calc(100% - 32px);
+    background: #f5ecd3;
+  }
+  .c .scoretable td {
+    border: 1px solid #2a2520;
+    padding: 8px 10px;
+    font-family: 'IM Fell English', serif;
+    font-size: 13px;
+    vertical-align: middle;
+  }
+  .c .scoretable .k {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #6b4e1f;
+    background: #e6d8b6;
+    width: 38%;
+  }
+  .c .scoretable .v {
+    color: #2a2520;
+    font-size: 14px;
+  }
+  .c .scoretable .v em {
+    font-style: italic;
+    color: #6b4e1f;
+    font-size: 12px;
+  }
+
+  .c .stamp {
+    margin: 18px 16px 16px;
+    text-align: center;
+    border: 2px double #6b4e1f;
+    padding: 10px 12px;
+    color: #6b4e1f;
+    font-family: 'IM Fell English SC', serif;
+    transform: rotate(-1.5deg);
+    background: rgba(245, 236, 211, 0.6);
+  }
+  .c .stamp .l { font-size: 9px; letter-spacing: 3px; }
+  .c .stamp .v { font-family: 'IM Fell English', serif; font-style: italic; font-size: 14px; letter-spacing: 0; margin-top: 2px; }
+
+  .c .next {
+    margin: 16px;
+    padding: 14px 0;
+    border-top: 1px solid #2a2520;
+    border-bottom: 1px solid #2a2520;
+    text-align: center;
+  }
+  .c .next .k {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: #6b4e1f;
+    margin-bottom: 4px;
+  }
+  .c .next .v {
+    font-family: 'IM Fell English', serif;
+    font-size: 18px;
+    color: #2a2520;
+  }
+  .c .next .v em { font-style: italic; }
+  .c .next .meta {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 12px;
+    color: #6b4e1f;
+    margin-top: 4px;
+  }
+
+  .c .nav {
+    position: sticky;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background: #2a2520;
+    border-top: 2px solid #c9a449;
+    padding: 10px 0 22px;
+  }
+  .c .nav .item-c {
+    text-align: center;
+    font-family: 'IM Fell English SC', serif;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: #c9b97a;
+    padding: 4px 0;
+  }
+  .c .nav .item-c.active { color: #f5ecd3; }
+
+  /* ========= bottom labels ========= */
+  .col-after {
+    margin-top: 20px;
+    text-align: center;
+    max-width: 360px;
+  }
+  .col-after p {
+    font-size: 12px;
+    color: #6e6e68;
+    line-height: 1.6;
+  }
+  .col-after p strong {
+    color: #1a2e1e;
+    font-weight: 600;
+  }
+  .swatches {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 12px;
+  }
+  .sw {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.1);
+  }
+
+  .footer-note {
+    max-width: 720px;
+    margin: 64px auto 0;
+    text-align: center;
+    padding: 24px;
+    background: #fff;
+    border: 1px solid rgba(26, 46, 30, 0.1);
+    border-radius: 12px;
+  }
+  .footer-note h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a2e1e;
+    margin-bottom: 8px;
+  }
+  .footer-note p {
+    font-size: 13px;
+    color: #5a5a55;
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Scotland Golf 2026 — Three Directions</h1>
+  <p>Same content, three distinct aesthetic and structural approaches. Mockup shows the mobile "today view" on Thursday 23 July (NB West Links day). Pick one and I'll write the Claude Code prompt.</p>
+</div>
+
+<div class="grid">
+
+  <!-- ============================================================ -->
+  <!-- DIRECTION A — REFINED HERITAGE                                -->
+  <!-- ============================================================ -->
+  <div class="col">
+    <div class="col-label">
+      <div class="tag">Direction A</div>
+      <h2>Refined Heritage</h2>
+      <p>Evolves the current site. Dark forest green, cream, gold; serif-led. A private club's program book — quiet, restrained, confident.</p>
+    </div>
+
+    <div class="phone a">
+      <div class="screen">
+        <div class="status-bar">
+          <span>9:41</span>
+          <span class="right">5G &nbsp; 84%</span>
+        </div>
+
+        <div class="topbar">
+          <div class="crest">Scotland Golf 2026</div>
+          <div class="date">Thursday, 23 July</div>
+          <div class="day-no">Day five of thirteen</div>
+        </div>
+
+        <div class="hero">
+          <div class="label">Today's Round</div>
+          <div class="course">North Berwick</div>
+          <div class="sub">West Links · The Old Tom Morris</div>
+          <div class="time">2:00</div>
+          <div class="time-sub">PM tee · arrive by 1:15</div>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <div class="v">16°</div>
+            <div class="k">Partly cloudy</div>
+          </div>
+          <div class="stat">
+            <div class="v">12 mph</div>
+            <div class="k">SW wind</div>
+          </div>
+          <div class="stat">
+            <div class="v">11:43</div>
+            <div class="k">Low tide</div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">The Day's Plan</div>
+          <div class="row">
+            <div class="l">Breakfast at 6a NB B&amp;B<small>Last morning with Alan</small></div>
+            <div class="r">8:00</div>
+          </div>
+          <div class="row">
+            <div class="l">Beach walk &amp; pack out<small>Check-out by noon</small></div>
+            <div class="r">10–12</div>
+          </div>
+          <div class="row">
+            <div class="l">Drive to West Links<small>0.4 mi · 2 minutes</small></div>
+            <div class="r">1:00</div>
+          </div>
+          <div class="row">
+            <div class="l">Tee off — Hole 1<small>Caddies confirmed</small></div>
+            <div class="r">2:00</div>
+          </div>
+          <div class="row">
+            <div class="l">Drive to Nethan House<small>97 mi · est. 2:00</small></div>
+            <div class="r">7:00</div>
+          </div>
+        </div>
+
+        <div class="caddies">
+          <div class="l">Caddies</div>
+          <div class="v">Two caddies confirmed · £80 + tip pp</div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">Tomorrow</div>
+          <div class="row">
+            <div class="l">Dumbarnie Links<small>Friday · flex day · ~30 min south</small></div>
+            <div class="r">TBD</div>
+          </div>
+        </div>
+
+        <div class="nav">
+          <div class="item active"><span class="ico">i.</span>Today</div>
+          <div class="item"><span class="ico">ii.</span>Trip</div>
+          <div class="item"><span class="ico">iii.</span>Map</div>
+          <div class="item"><span class="ico">iv.</span>More</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-after">
+      <p>Closest to your current site. Same palette, refined hierarchy, dotted-rule schedule, gold accents used sparingly. Caddies banner reads like an engraved card. <strong>Risk-low, evolution not revolution.</strong></p>
+      <div class="swatches">
+        <div class="sw" style="background: #1a2e1e;"></div>
+        <div class="sw" style="background: #f4ede0;"></div>
+        <div class="sw" style="background: #c9a449;"></div>
+        <div class="sw" style="background: #5a6a4e;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- DIRECTION B — LINKSLAND EDITORIAL                             -->
+  <!-- ============================================================ -->
+  <div class="col">
+    <div class="col-label">
+      <div class="tag">Direction B</div>
+      <h2>Linksland Editorial</h2>
+      <p>Magazine-style. Photo hero per day, big serif headlines, generous whitespace, modern sans body. Mr Porter / Cereal magazine energy.</p>
+    </div>
+
+    <div class="phone b">
+      <div class="screen">
+        <div class="status-bar">
+          <span>9:41</span>
+          <span class="right">5G &nbsp; 84%</span>
+        </div>
+
+        <div class="topbar">
+          <div class="meta"><strong>Day 5</strong> · 23 July</div>
+          <div class="menu"></div>
+        </div>
+
+        <div class="hero-photo">
+          <div class="top-tag"><span class="dot"></span>Today's round</div>
+          <div>
+            <h1>North<br/>Berwick West</h1>
+            <div class="sub">The Old Tom Morris · Est. 1832</div>
+          </div>
+        </div>
+
+        <div class="tee-block">
+          <div>
+            <div class="label">Tee time</div>
+            <div class="time">2:00 PM</div>
+          </div>
+          <div class="badge">Confirmed</div>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat">
+            <div class="k">Weather</div>
+            <div class="v">16°<small>SW 12</small></div>
+          </div>
+          <div class="stat">
+            <div class="k">Tide</div>
+            <div class="v">Low<small>11:43</small></div>
+          </div>
+          <div class="stat">
+            <div class="k">Drive</div>
+            <div class="v">2 min<small>0.4 mi</small></div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>The Day</h3>
+          <div class="item">
+            <div class="num">01</div>
+            <div class="body">
+              <div class="ttl">Breakfast at 6a</div>
+              <div class="desc">Last morning with Alan. Pack out by noon.</div>
+              <div class="when">8:00 AM</div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="num">02</div>
+            <div class="body">
+              <div class="ttl">West Links · 1st tee</div>
+              <div class="desc">Caddies confirmed. Arrive by 1:15. Off ~6:30.</div>
+              <div class="when">2:00 PM</div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="num">03</div>
+            <div class="body">
+              <div class="ttl">Drive to Nethan House</div>
+              <div class="desc">97 mi via M90 · ~2 hours · arr. by 9 PM.</div>
+              <div class="when">7:00 PM</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="next-day">
+          <div class="k">Tomorrow</div>
+          <div class="v">Dumbarnie Links</div>
+          <div class="meta">Day 6 · flex · 30 min south of St Andrews</div>
+        </div>
+
+        <div class="nav">
+          <div class="item-n active"><span class="ico"></span>Today</div>
+          <div class="item-n"><span class="ico"></span>Trip</div>
+          <div class="item-n"><span class="ico"></span>Map</div>
+          <div class="item-n"><span class="ico"></span>More</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-after">
+      <p>Bigger swing. Photo hero per day creates emotional anchor. Type: Playfair Display headlines + Inter body. Numbered editorial schedule, gold-dot bottom nav. <strong>Best for the keepsake feeling, but needs course photos sourced.</strong></p>
+      <div class="swatches">
+        <div class="sw" style="background: #1d1d1b;"></div>
+        <div class="sw" style="background: #fbf9f4;"></div>
+        <div class="sw" style="background: #d4af37;"></div>
+        <div class="sw" style="background: #2d5a3d;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- DIRECTION C — VINTAGE SCORECARD                               -->
+  <!-- ============================================================ -->
+  <div class="col">
+    <div class="col-label">
+      <div class="tag">Direction C</div>
+      <h2>Vintage Scorecard</h2>
+      <p>Most "Scotland-y." Aged paper, IM Fell English type, scorecard motifs, hand-stamped feel. Heirloom golf journal.</p>
+    </div>
+
+    <div class="phone c">
+      <div class="screen">
+        <div class="status-bar">
+          <span>9:41</span>
+          <span class="right">5G &nbsp; 84%</span>
+        </div>
+
+        <div class="topbar">
+          <div class="crest">SCOTLAND ✦ MMXXVI</div>
+          <div class="day-num">V</div>
+          <div class="scorecard">— a scorecard for the day —</div>
+          <div class="date">XXIII · JULY · THURSDAY</div>
+        </div>
+
+        <div class="hole-card">
+          <div class="top">
+            <div class="k">TODAY'S ROUND</div>
+            <div class="v">North Berwick West Links</div>
+          </div>
+          <div class="body">
+            <div class="est">Est. 1832 · The Old Tom Morris</div>
+            <div class="time">2:00</div>
+            <div class="meta">PM tee · arrive by a quarter past one</div>
+          </div>
+        </div>
+
+        <table class="scoretable">
+          <tr><td class="k">Weather</td><td class="v">16° · partly cloudy <em>SW 12 mph</em></td></tr>
+          <tr><td class="k">Tide</td><td class="v">Low at 11:43 a.m.</td></tr>
+          <tr><td class="k">Caddies</td><td class="v">Two engaged <em>£80 + tip</em></td></tr>
+          <tr><td class="k">Drive</td><td class="v">0.4 mi from B&amp;B</td></tr>
+        </table>
+
+        <div class="stamp">
+          <div class="l">CADDIES SECURED</div>
+          <div class="v">— meet at the starter's hut —</div>
+        </div>
+
+        <table class="scoretable">
+          <tr><td class="k">Morn.</td><td class="v">Breakfast with Alan <em>· 8 a.m.</em></td></tr>
+          <tr><td class="k">Noon</td><td class="v">Pack &amp; check out</td></tr>
+          <tr><td class="k">After</td><td class="v">Drive to Nethan <em>· 2 hr</em></td></tr>
+        </table>
+
+        <div class="next">
+          <div class="k">— TOMORROW —</div>
+          <div class="v">Dumbarnie <em>or</em> the New</div>
+          <div class="meta">Day VI · flex · time TBD</div>
+        </div>
+
+        <div class="nav">
+          <div class="item-c active">TODAY</div>
+          <div class="item-c">TRIP</div>
+          <div class="item-c">MAP</div>
+          <div class="item-c">LOG</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-after">
+      <p>Boldest aesthetic move. Looks like a real Open-era scorecard. Roman numerals for day count, double-rule borders, "stamped" caddies confirmation. <strong>High personality but harder to add new sections without breaking the metaphor.</strong></p>
+      <div class="swatches">
+        <div class="sw" style="background: #2a2520;"></div>
+        <div class="sw" style="background: #ede1c4;"></div>
+        <div class="sw" style="background: #6b4e1f;"></div>
+        <div class="sw" style="background: #c9a449;"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer-note">
+  <h3>How to react</h3>
+  <p>You don't have to pick one whole. Tell me which is closest, and what to steal from the others — e.g. "B's photo hero, but A's palette and C's roman numerals for day count." I'll combine and write the Claude Code prompt from there.</p>
+</div>
+
+</body>
+</html>
